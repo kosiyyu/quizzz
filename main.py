@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 
 from config import DATABASE_CONFIG
-from resource.answer import AnswerResource
+from resource.answer_resource import AnswerResource
 from resource.hello_world import HelloWorld
 
 app = Flask(__name__)
@@ -15,13 +15,11 @@ api = Api(app)
 
 with app.app_context():
     from db import db
-
     db.init_app(app)
     db.create_all()
 
-# api.add_resource(AnswerResource, '/api', endpoint='hello_world')
-# api.add_resource(HelloWorld, '/api', endpoint='hello_world')
-api.add_resource(HelloWorld, '/api/hello_world', endpoint='hello_world', methods=['GET'])
+api.add_resource(HelloWorld, '/api/hello_world')
+api.add_resource(AnswerResource, '/api/answers')
 
 if __name__ == '__main__':
     app.run(debug=True)
