@@ -1,9 +1,6 @@
 from flask import Flask
-from flask_restful import Api
-
 from config import DATABASE_CONFIG
-from resource.answer_resource import AnswerResource
-from resource.hello_world import HelloWorld
+from service.AnswerService import AnswerService
 
 app = Flask(__name__)
 
@@ -11,15 +8,33 @@ db_url = f"{DATABASE_CONFIG['provider']}://{DATABASE_CONFIG['username']}:{DATABA
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-api = Api(app)
-
 with app.app_context():
     from db import db
+
     db.init_app(app)
     db.create_all()
 
-api.add_resource(HelloWorld, '/api/hello_world')
-api.add_resource(AnswerResource, '/api/answers')
+
+# ROUTES
+@app.route('/', methods=['GET'])
+def get_all_answers():
+    return AnswerService.get_all_answers()
+
+
+@app.route('/<int:answer_id>', methods=['GET'])
+def get_answer(answer_id):
+    return AnswerService.get_answer(answer_id)
+
+
+@app.route('/', methods=['POST'])
+def post_answer():
+    return AnswerService.post_answer()
+
+
+@app.route('/<int:answer_id>', methods=['DELETE'])
+def delete_id(answer_id):
+    return AnswerService.delete_answer(answer_id)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
