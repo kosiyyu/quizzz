@@ -1,6 +1,7 @@
 from flask import Flask
+from flask_restful import Api
 from config import DATABASE_CONFIG
-from service.AnswerService import AnswerService
+from resources.answer import AnswerAPI, AnswerByIdAPI
 
 app = Flask(__name__)
 
@@ -11,30 +12,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 with app.app_context():
     from db import db
 
+    # init db
     db.init_app(app)
+    # Create the database tables
     db.create_all()
 
+api = Api(app)
 
-# ROUTES
-@app.route('/', methods=['GET'])
-def get_all_answers():
-    return AnswerService.get_all_answers()
-
-
-@app.route('/<int:answer_id>', methods=['GET'])
-def get_answer(answer_id):
-    return AnswerService.get_answer(answer_id)
-
-
-@app.route('/', methods=['POST'])
-def post_answer():
-    return AnswerService.post_answer()
-
-
-@app.route('/<int:answer_id>', methods=['DELETE'])
-def delete_id(answer_id):
-    return AnswerService.delete_answer(answer_id)
-
+api.add_resource(AnswerAPI, '/api/answers')
+api.add_resource(AnswerByIdAPI, '/api/answers/<int:answer_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
