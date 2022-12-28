@@ -1,57 +1,54 @@
-from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
-
+from flask_restful import Resource, reqparse
 from db import db
-from models.answer import Answer
+from models.question import Question
 
 parser = reqparse.RequestParser()
 parser.add_argument('text', type=str)
-parser.add_argument('correct', type=bool)
-parser.add_argument('question_id', type=int)
+parser.add_argument('points_per_correct_answer', type=float)
+parser.add_argument('quiz_id', type=int)
 
 
-class AnswerByIdAPI(Resource):
+class QuestionByIdAPI(Resource):
 
-    def get(self, answer_id):
+    def get(self, question_id):
         try:
-            answer = Answer.query.filter_by(id=answer_id).first()
-            if answer is None:
+            question = Question.query.filter_by(id=question_id).first()
+            if question is None:
                 return {'message': 'The requested resource could not be found for the provided ID.'}, 404, {'Content-Type': 'application/json'}
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}
-        return answer.to_dict(), 200, {'Content-Type': 'application/json'}
+        return question.to_dict(), 200, {'Content-Type': 'application/json'}
 
-    def delete(self, answer_id):
+    def delete(self, question_id):
         try:
-            answer = Answer.query.filter_by(id=answer_id).first()
-            if answer is None:
+            question = Question.query.filter_by(id=question_id).first()
+            if question is None:
                 return {'message': 'The requested resource could not be found for the provided ID.'}, 404, {'Content-Type': 'application/json'}
-            db.session.delete(answer)
+            db.session.delete(question)
             db.session.commit()
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}
         return {'': ''}, 204, {'Content-Type': 'application/json'}
 
 
-class AnswerAPI(Resource):
-
+class QuestionAPI(Resource):
     def get(self):
         try:
-            answers = Answer.query.all()
-            if answers is None:
+            questions = Question.query.all()
+            if questions is None:
                 return {'message': 'The requested resource could not be found for the provided ID.'}, 404, {'Content-Type': 'application/json'}
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}
-        return [a.to_dict() for a in answers], 200, {'Content-Type': 'application/json'}
+        return [q.to_dict() for q in questions], 200, {'Content-Type': 'application/json'}
 
     def post(self):
         try:
             args = parser.parse_args()
-            # validation (part of it is being handled by reqparse, that returns correct types)
-            if not all(key in args for key in ('text', 'correct', 'question_id')):
+            if not all(key in args for key in ('text', 'points_per_correct_answer', 'quiz_id')):
                 return {'message': 'The request is missing one or more required fields. Please check the request and try again.'}, 400, {'Content-Type': 'application/json'}
-            answer = Answer(text=args['text'], correct=args['correct'], question_id=args['question_id'])
-            db.session.add(answer)
+            question = Question(text=args['text'], points_per_correct_answer=args['points_per_correct_answer'], quiz_id=args['quiz_id'])
+            db.session.add(question)
             db.session.commit()
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}

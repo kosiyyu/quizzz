@@ -1,29 +1,20 @@
 from db import db
+from models.question import Question
 
 
 class Answer(db.Model):
-    __tablename__ = 'answer'
+    __tablename__ = 'answers'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    value = db.Column(db.String(255))
+    text = db.Column(db.String(255))
+    correct = db.Column(db.Boolean, default=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
 
-    def __init__(self, value):
-        self.value = value
+    question = db.relationship("Question", back_populates="answers")
 
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete_from_db(self):
-        db.session.remove(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def find_by_id(cls, id):
-        answer = Answer.query.filter(Answer.id == id).delete()
-        return answer
+    def __init__(self, text=None, correct=None, question_id=None):
+        self.text = text
+        self.correct = correct
+        self.question_id=question_id
 
     def to_dict(self):
-        return {'id': self.id, 'value': self.value}
+        return {'id': self.id, 'text': self.text, 'correct': self.correct, 'question_id': self.question_id}
