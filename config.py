@@ -4,5 +4,5 @@ DATABASE_CONFIG = {
     'provider': 'postgresql',
     'username': 'postgres',
     'password': 'alamakota123',
-    'database': 'flask_test'
+    'database': 'red-panda'
 }
