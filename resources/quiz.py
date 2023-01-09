@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
-
+from flask_cors import cross_origin
 from db import db
 from models.quiz import Quiz
 
@@ -9,6 +9,11 @@ parser.add_argument('name', type=str)
 
 
 class QuizByIdAPI(Resource):
+    def options(self):
+        return {'Allow': 'GET, DELETE'}, 200, {'Access-Control-Allow-Origin': '*',
+                                               'Access-Control-Allow-Methods': 'GET, DELETE',
+                                               'Access-Control-Allow-Headers': 'Content-Type'}
+
     def get(self, quiz_id):
         try:
             quiz = Quiz.query.filter_by(id=quiz_id).first()
@@ -37,6 +42,12 @@ class QuizByIdAPI(Resource):
 
 
 class QuizAPI(Resource):
+
+    def options(self):
+        return {'Allow': 'GET, POST'}, 200, {'Access-Control-Allow-Origin': '*',
+                                             'Access-Control-Allow-Methods': 'GET, POST',
+                                             'Access-Control-Allow-Headers': 'Content-Type'}
+
     def get(self):
         try:
             quizzes = Quiz.query.all()
@@ -52,7 +63,6 @@ class QuizAPI(Resource):
     def post(self):
         try:
             args = parser.parse_args()
-            print(args)
             if not all(key in args for key in ('name',)):
                 return {
                            'message': 'The request is missing one or more required fields. Please check the request and try again.'}, 400, {
@@ -64,4 +74,4 @@ class QuizAPI(Resource):
             return {
                        'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
                        'Content-Type': 'application/json'}
-        return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
+        return quiz.to_dict(), 201, {'Content-Type': 'application/json'}

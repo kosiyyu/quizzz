@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
-
+from flask_cors import cross_origin
 from db import db
 from models.answer import Answer
 
@@ -55,4 +55,4 @@ class AnswerAPI(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}
-        return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
+        return answer.to_dict(), 201, {'Content-Type': 'application/json'}

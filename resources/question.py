@@ -52,4 +52,4 @@ class QuestionAPI(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return {'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {'Content-Type': 'application/json'}
-        return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
+        return question.to_dict(), 201, {'Content-Type': 'application/json'}
