@@ -1,19 +1,17 @@
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
-from flask_cors import cross_origin
+
 from db import db
+from models.answer import Answer
+from models.question import Question
 from models.quiz import Quiz
 
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)
+parser.add_argument('questions', type=list, location='json')
 
 
 class QuizByIdAPI(Resource):
-    def options(self):
-        return {'Allow': 'GET, DELETE'}, 200, {'Access-Control-Allow-Origin': '*',
-                                               'Access-Control-Allow-Methods': 'GET, DELETE',
-                                               'Access-Control-Allow-Headers': 'Content-Type'}
-
     def get(self, quiz_id):
         try:
             quiz = Quiz.query.filter_by(id=quiz_id).first()
@@ -42,12 +40,6 @@ class QuizByIdAPI(Resource):
 
 
 class QuizAPI(Resource):
-
-    def options(self):
-        return {'Allow': 'GET, POST'}, 200, {'Access-Control-Allow-Origin': '*',
-                                             'Access-Control-Allow-Methods': 'GET, POST',
-                                             'Access-Control-Allow-Headers': 'Content-Type'}
-
     def get(self):
         try:
             quizzes = Quiz.query.all()
@@ -67,11 +59,19 @@ class QuizAPI(Resource):
                 return {
                            'message': 'The request is missing one or more required fields. Please check the request and try again.'}, 400, {
                            'Content-Type': 'application/json'}
-            quiz = Quiz(name=args['name'])
+            questions_args = args.pop('questions', [])
+            quiz = Quiz(**args)
+            for q_args in questions_args:
+                answers_args = q_args.pop('answers', [])
+                question = Question(**q_args)
+                quiz.questions.append(question)
+                for a_args in answers_args:
+                    answer = Answer(**a_args)
+                    question.answers.append(answer)
             db.session.add(quiz)
             db.session.commit()
         except SQLAlchemyError:
             return {
                        'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
                        'Content-Type': 'application/json'}
-        return quiz.to_dict(), 201, {'Content-Type': 'application/json'}
+        return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
