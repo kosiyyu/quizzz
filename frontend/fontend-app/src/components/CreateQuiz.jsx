@@ -69,30 +69,25 @@ const CreateQuiz = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        // create the quiz
-        const quiz = await createQuiz({name: quizName});
-
-        // create the questions and answers
-        const createdQuestions = [];
-        for (let i = 0; i < questions.length; i++) {
-            // create the question
-            const json = JSON.stringify({text: questions[i], points_per_correct_answer: 1, quiz_id: quiz.id});
-            const question = await createQuestion(json);
-            createdQuestions.push(question);
-
-            // create the answers for this question
-            for (let j = 0; j < answers[i].length; j++) {
-                const isCorrect = j === correctAnswers[i];
-                console.log(isCorrect)
-                await createAnswer({text: answers[i][j], correct: isCorrect, question_id: question.id});
-            }
-        }
-
-        console.log('Quiz created successfully!')
-        //alert('Quiz created successfully!');
+    // create the quiz object
+    const quiz = {
+        name: quizName,
+        questions: questions.map((question, index) => ({
+            text: question,
+            points_per_correct_answer: 1,
+            answers: answers[index].map((answer, answerIndex) => ({
+                text: answer,
+                correct: correctAnswers[index] === answerIndex
+            }))
+        }))
     }
+
+    // send the entire quiz object to the server
+    await createQuiz(quiz);
+}
+
 
     return (
         <div>
