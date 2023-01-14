@@ -1,38 +1,131 @@
-.App {
-  text-align: center;
+.question {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+padding: 10px;
+background-color: #f2f2f2;
+border-radius: 5px;
+overflow: scroll; /* added to allow for scrolling */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.answer {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin: 10px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+height: 100vh; /*to make sure it takes up the full screen height */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input[type=text], input[type=radio] {
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
 }
 
-.App-link {
-  color: #61dafb;
+input[type=submit] {
+width: 100%;
+background-color: #4CAF50;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type=submit]:hover {
+background-color: #45a049;
+}
+
+button[type=button] {
+background-color: #ff0000;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button[type=button]:hover {
+background-color: #ff3333;
+}
+
+.container {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+height: 100vh; /*to make sure it takes up the full screen height */
+overflow-y: scroll; /*add this line to allow scrolling */
+}
+
+.question {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+padding: 10px;
+background-color: #f2f2f2;
+border-radius: 5px;
+width: 80%;
+}
+
+.answer {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin: 10px 0;
+width: 80%;
+}
+
+input[type=text], input[type=radio] {
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
+}
+
+input[type=submit] {
+width: 100%;
+background-color: #4CAF50;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+input[type=submit]:hover {
+background-color: #45a049;
+}
+
+button[type=button] {
+background-color: #ff0000;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button[type=button]:hover {
+background-color: #ff3333;
 }

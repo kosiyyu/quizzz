@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {API_BASE_URL} from './config';
-import { toast } from 'react-toastify';
-
+import {toast} from 'react-toastify';
 
 
 export const getQuizzes = () => {
@@ -22,11 +21,15 @@ export const createQuiz = (data) => {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.data)
+        .then(response => {
+            toast.success('Quiz created successfully!', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+            return response.data;
+        })
         .catch(error => {
-
             toast.error('Error while creating quiz!', {
-            position: toast.POSITION.BOTTOM_RIGHT
+                position: toast.POSITION.BOTTOM_RIGHT
             });
         });
 }

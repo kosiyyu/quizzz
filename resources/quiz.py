@@ -53,17 +53,29 @@ class QuizAPI(Resource):
     def post(self):
         try:
             args = parser.parse_args()
-            # validation
+            if not 'name' in args or not args['name']:
+                return {
+                           'message': 'The request is missing the "name" field or it is empty. Please check the request and try again.'}, 400, {
+                           'Content-Type': 'application/json'}
             if not all(key in args for key in ('name', 'questions')):
                 return {
                            'message': 'The request is missing one or more required fields. Please check the request and try again.'}, 400, {
                            'Content-Type': 'application/json'}
 
             for question in args['questions']:
+                if not 'text' in question or not question['text']:
+                    return {
+                               'message': 'The request is missing the "text" field for one or more questions or it is empty. Please check the request and try again.'}, 400, {
+                               'Content-Type': 'application/json'}
                 correct_answers = [a for a in question['answers'] if a['correct'] == True]
                 if len(correct_answers) != 1:
                     return {'message': 'Each question should have only one correct answer'}, 400, {
                         'Content-Type': 'application/json'}
+                for a in question['answers']:
+                    if not 'text' in a or not a['text']:
+                        return {
+                                   'message': 'The request is missing the "text" field for one or more answers or it is empty. Please check the request and try again.'}, 400, {
+                                   'Content-Type': 'application/json'}
             quiz = Quiz(name=args['name'])
             db.session.add(quiz)
             db.session.commit()

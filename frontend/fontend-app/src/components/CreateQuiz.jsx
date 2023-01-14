@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import {createAnswer} from '../services/AnswerApi'
-import {createQuestion} from '../services/QuestionApi'
 import {createQuiz} from '../services/QuizApi'
 
 
@@ -69,40 +67,42 @@ const CreateQuiz = () => {
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    // create the quiz object
-    const quiz = {
-        name: quizName,
-        questions: questions.map((question, index) => ({
-            text: question,
-            points_per_correct_answer: 1,
-            answers: answers[index].map((answer, answerIndex) => ({
-                text: answer,
-                correct: correctAnswers[index] === answerIndex
+        // create the quiz object
+        const quiz = {
+            name: quizName,
+            questions: questions.map((question, index) => ({
+                text: question,
+                points_per_correct_answer: 1,
+                answers: answers[index].map((answer, answerIndex) => ({
+                    text: answer,
+                    correct: correctAnswers[index] === answerIndex
+                }))
             }))
-        }))
-    }
+        }
 
-    // send the entire quiz object to the server
-    await createQuiz(quiz);
-}
+        // send the entire quiz object to the server
+        await createQuiz(quiz);
+    }
 
 
     return (
-        <div>
+        <div className={"container"}>
             <h1>Create Quiz</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="quizName">Quiz Name:</label>
-                <input
-                    type="text"
-                    id="quizName"
-                    value={quizName}
-                    onChange={handleQuizNameChange}
-                />
-                <br/>
+                <div className={"center-div"}>
+                    <label htmlFor="quizName">Quiz Name:</label>
+                    <input
+                        type="text"
+                        id="quizName"
+                        value={quizName}
+                        onChange={handleQuizNameChange}
+                    />
+                    <br/>
+                </div>
                 {questions.map((q, i) => (
-                    <div key={i}>
+                    <div className={"question"} key={i}>
                         <label htmlFor={`question${i}`}>Question {i + 1}:</label>
                         <input
                             type="text"
@@ -115,7 +115,7 @@ const CreateQuiz = () => {
                         </button>
                         <br/>
                         {answers[i].map((a, j) => (
-                            <div key={j}>
+                            <div className={"answer"} key={j}>
                                 <label htmlFor={`answer${i}-${j}`}>Answer {j + 1}:</label>
                                 <input
                                     type="text"
