@@ -1,131 +1,136 @@
-.question {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin: 20px 0;
-padding: 10px;
-background-color: #f2f2f2;
-border-radius: 5px;
-overflow: scroll; /* added to allow for scrolling */
+html, body {
+    height: 100%;
+    overflow: scroll;
 }
 
-.answer {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-margin: 10px 0;
-}
-
-.container {
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-height: 100vh; /*to make sure it takes up the full screen height */
-}
-
-input[type=text], input[type=radio] {
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
-border: 2px solid #ccc;
-border-radius: 4px;
-}
-
-input[type=submit] {
-width: 100%;
-background-color: #4CAF50;
-color: white;
-padding: 14px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
-
-input[type=submit]:hover {
-background-color: #45a049;
-}
-
-button[type=button] {
-background-color: #ff0000;
-color: white;
-padding: 14px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
-
-button[type=button]:hover {
-background-color: #ff3333;
-}
-
-.container {
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-height: 100vh; /*to make sure it takes up the full screen height */
-overflow-y: scroll; /*add this line to allow scrolling */
+    .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: #FDB813; /* warm orange color */
 }
 
 .question {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin: 20px 0;
-padding: 10px;
-background-color: #f2f2f2;
-border-radius: 5px;
-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #F8D1CC; /* warm pink color */
+    border: 2px solid #F8D1CC; /* warm pink color */
 }
 
 .answer {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-margin: 10px 0;
-width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    background-color: #F8D1CC; /* warm pink color */
+    border: 2px solid #F8D1CC; /* warm pink color */
 }
 
 input[type=text], input[type=radio] {
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
-border: 2px solid #ccc;
-border-radius: 4px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #F8D1CC; /* warm pink color */
+    border-radius: 4px;
 }
 
 input[type=submit] {
-width: 100%;
-background-color: #4CAF50;
-color: white;
-padding: 14px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 4px;
-cursor: pointer;
+    width: 100%;
+    background-color: #F8A600; /* warm yellow color */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
 }
 
 input[type=submit]:hover {
-background-color: #45a049;
+    background-color: #F9B900; /* warm yellow color */
 }
 
 button[type=button] {
-background-color: #ff0000;
-color: white;
-padding: 14px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 4px;
-cursor: pointer;
+    background-color: #8B0000; /* warm brown color */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
 }
 
 button[type=button]:hover {
-background-color: #ff3333;
+    background-color: #9B0000; /* warm brown color */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: #FDB813; /* warm orange color */
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #F8D1CC; /* warm pink color */
+    border: 2px solid #F8D1CC; /* warm pink color */
+}
+
+.answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    background-color: #F8D1CC; /* warm pink color */
+    border: 2px solid #F8D1CC; /* warm pink color */
+}
+
+input[type=text], input[type=radio] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #F8D1CC; /* warm pink color */
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #F8A600; /* warm yellow color */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #F9B900; /* warm yellow color */
+}
+
+button[type=button] {
+    background-color: #8B0000; /* warm brown color */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+button[type=button]:hover {
+    background-color: #9B0000; /* warm brown color */
 }
