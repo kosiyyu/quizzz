@@ -9,6 +9,7 @@ class Answer(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
     question = db.relationship("Question", back_populates="answers")
 
+
     def __init__(self, text=None, correct=None, question_id=None):
         self.text = text
         self.correct = correct

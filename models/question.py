@@ -9,7 +9,6 @@ class Question(db.Model):
     points_per_correct_answer = db.Column(db.Float, nullable=False)
     answers = db.relationship("Answer", back_populates="question", cascade='all, delete, delete-orphan', lazy=True)
     quiz = db.relationship("Quiz", back_populates="questions")
-
     def __init__(self, text=None, points_per_correct_answer=None, quiz_id=None):
         self.text = text
         self.points_per_correct_answer = points_per_correct_answer
