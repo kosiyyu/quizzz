@@ -4,5 +4,5 @@ DATABASE_CONFIG = {
     'provider': 'postgresql',
     'username': 'postgres',
     'password': 'alamakota123',
-    'database': 'red-panda'
+    'database': 'red-panda-2'
 }
