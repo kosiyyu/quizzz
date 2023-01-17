@@ -6,7 +6,7 @@ from config import DATABASE_CONFIG
 from resources.answer import AnswerAPI, AnswerByIdAPI
 from resources.question import QuestionAPI, QuestionByIdAPI
 from resources.quiz import QuizAPI, QuizByIdAPI, QuizByNameAPI
-from resources.result import ResultAPI
+from resources.result import ResultAPI, ResultByIdAPI
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -38,6 +38,7 @@ api.add_resource(QuizByIdAPI, '/api/quizzes/<int:quiz_id>')
 api.add_resource(QuizByNameAPI, '/api/quizzes/<string:quiz_name>')
 
 api.add_resource(ResultAPI, '/api/solve')
+api.add_resource(ResultByIdAPI, '/api/solve/<int:result_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

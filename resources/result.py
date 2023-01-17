@@ -6,6 +6,20 @@ from models.quiz import Quiz
 from models.result import Result
 
 
+class ResultByIdAPI(Resource):
+    def get(self, result_id):
+        try:
+            result = Result.query.filter_by(id=result_id).first()
+            if result is None:
+                return {'message': 'The requested resource could not be found for the provided ID.'}, 404, {
+                    'Content-Type': 'application/json'}
+        except SQLAlchemyError:
+            return {
+                       'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
+                       'Content-Type': 'application/json'}
+        return result.to_dict(), 200, {'Content-Type': 'application/json'}
+
+
 class ResultAPI(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('quiz_id', type=int, required=True)
@@ -23,7 +37,7 @@ class ResultAPI(Resource):
             return {
                        'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
                        'Content-Type': 'application/json'}
-        return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
+        return solved_quiz.to_dict(), 201, {'Content-Type': 'application/json'}
 
     def score_quiz(self, solved_quiz):
         quiz = Quiz.query.filter_by(id=solved_quiz.quiz_id).first()

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import {createResult} from '../services/ResultApi';
 import {getQuizById} from "../services/QuizApi";
 
 const SolveQuiz = ({id}) => {
     const [quiz, setQuiz] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
+    const navigate = useNavigate();
 
          useEffect(() => {
         getQuizById(id) // call the function here
@@ -24,14 +26,15 @@ const SolveQuiz = ({id}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const result = {
+        let result = {
             quiz_id: quiz.id, answers: selectedAnswers.map((answerIndex, questionIndex) => ({
                 question_id: quiz.questions[questionIndex].id,
                 answer_id: quiz.questions[questionIndex].answers[answerIndex].id
             }))
         }
 
-        await createResult(result);
+        const data = await createResult(result)
+        navigate(`/result/${data.id}`);
     }
 
     return quiz === null || quiz === undefined ? <p>Loading the quiz...</p> : (
