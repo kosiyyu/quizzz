@@ -22,7 +22,7 @@ export const createResult = (data) => {
 }
 
 export const getResultById = (id) => {
-    return axios.get(`${API_BASE_URL}/api/solve/${id}`)
+    return axios.get(`${API_BASE_URL}/api/solve/id/${id}`)
         .then(response => response.data)
         .catch(error => {
             console.log(error);

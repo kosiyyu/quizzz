@@ -28,17 +28,17 @@ api = Api(app)
 
 # !!!- - R O U T S - -!!!
 api.add_resource(AnswerAPI, '/api/answers')
-api.add_resource(AnswerByIdAPI, '/api/answers/<int:answer_id>')
+api.add_resource(AnswerByIdAPI, '/api/answers/id/<int:answer_id>')
 
 api.add_resource(QuestionAPI, '/api/questions')
-api.add_resource(QuestionByIdAPI, '/api/questions/<int:question_id>')
+api.add_resource(QuestionByIdAPI, '/api/questions/id/<int:question_id>')
 
 api.add_resource(QuizAPI, '/api/quizzes')
-api.add_resource(QuizByIdAPI, '/api/quizzes/<int:quiz_id>')
-api.add_resource(QuizByNameAPI, '/api/quizzes/<string:quiz_name>')
+api.add_resource(QuizByIdAPI, '/api/quizzes/id/<int:quiz_id>')
+api.add_resource(QuizByNameAPI, '/api/quizzes/name/<string:quiz_name>')
 
 api.add_resource(ResultAPI, '/api/solve')
-api.add_resource(ResultByIdAPI, '/api/solve/<int:result_id>')
+api.add_resource(ResultByIdAPI, '/api/solve/id/<int:result_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

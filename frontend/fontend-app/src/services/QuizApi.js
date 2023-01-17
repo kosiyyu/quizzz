@@ -22,7 +22,7 @@ export const createQuiz = (data) => {
 }
 
 export const getQuizById = (id) => {
-    return axios.get(`${API_BASE_URL}/api/quizzes/${id}`)
+    return axios.get(`${API_BASE_URL}/api/quizzes/id/${id}`)
         .then(response => response.data)
         .catch(error => {
             console.log(error);
@@ -30,7 +30,7 @@ export const getQuizById = (id) => {
 }
 
 export const getQuizByName = (name) => {
-    return axios.get(`${API_BASE_URL}/api/quizzes/${name}`)
+    return axios.get(`${API_BASE_URL}/api/quizzes/name/${name}`)
         .then(response => response.data)
         .catch(error => {
             console.log(error);

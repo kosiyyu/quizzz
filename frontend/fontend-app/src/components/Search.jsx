@@ -17,7 +17,7 @@ const Search = (props) => {
     return (
         <div>
             <input type="text" placeholder="Search for a quiz" value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
-            <button onClick={() => handleSearch(searchValue)}>Search</button>
+            <button onClick={() => handleSearch(searchValue.toString())}>Search</button>
         </div>
     );
 }
