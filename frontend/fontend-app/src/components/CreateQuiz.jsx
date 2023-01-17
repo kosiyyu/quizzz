@@ -57,11 +57,10 @@ const CreateQuiz = () => {
     }
 
     const handleRemoveAnswer = (questionIndex, answerIndex) => {
-        //console.log("handleRemoveAnswer called");
+        //console.log("aaaaaaaaaaaaaaaaaa");
         setAnswers(prevAnswers => {
             const updatedAnswers = [...prevAnswers];
             updatedAnswers[questionIndex] = updatedAnswers[questionIndex].filter((_, i) => i !== answerIndex);
-            //console.log("questionIndex: " + questionIndex + ", answerIndex: " + answerIndex);
             return updatedAnswers;
         });
     };
@@ -69,7 +68,6 @@ const CreateQuiz = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // create the quiz object
         const quiz = {
             name: quizName,
             questions: questions.map((question, index) => ({
@@ -82,7 +80,6 @@ const CreateQuiz = () => {
             }))
         }
 
-        // send the entire quiz object to the server
         await createQuiz(quiz);
     }
 

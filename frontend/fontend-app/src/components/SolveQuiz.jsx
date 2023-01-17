@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {createResult} from '../services/ResultApi';
-import axios from 'axios';
+import {getQuizById} from "../services/QuizApi";
 
 const SolveQuiz = ({id}) => {
     const [quiz, setQuiz] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api/quizzes/${id}`)
-            .then(response => {
-                console.log(response)
-                setQuiz(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+         useEffect(() => {
+        getQuizById(id) // call the function here
+            .then(data => {
+                setQuiz(data);
+            });
     }, [])
 
     const handleAnswerChange = (questionIndex, answerIndex) => {
@@ -28,7 +24,6 @@ const SolveQuiz = ({id}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // create the result object
         const result = {
             quiz_id: quiz.id, answers: selectedAnswers.map((answerIndex, questionIndex) => ({
                 question_id: quiz.questions[questionIndex].id,
@@ -36,7 +31,6 @@ const SolveQuiz = ({id}) => {
             }))
         }
 
-        // send the entire result object to the server
         await createResult(result);
     }
 

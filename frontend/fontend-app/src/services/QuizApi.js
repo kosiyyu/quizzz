@@ -2,19 +2,6 @@ import axios from 'axios';
 import {API_BASE_URL} from './config';
 import {toast} from 'react-toastify';
 
-
-export const getQuizzes = () => {
-    return axios.get(`${API_BASE_URL}/api/quizzes`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.data)
-        .catch(error => {
-            console.log(error);
-        });
-}
-
 export const createQuiz = (data) => {
     return axios.post(`${API_BASE_URL}/api/quizzes`, data, {
         headers: {
@@ -34,24 +21,8 @@ export const createQuiz = (data) => {
         });
 }
 
-export const deleteQuiz = (id) => {
-    return axios.delete(`${API_BASE_URL}/api/quizzes/${id}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.data)
-        .catch(error => {
-            console.log(error);
-        });
-}
-
 export const getQuizById = (id) => {
-    return axios.get(`${API_BASE_URL}/api/quizzes/${id}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    return axios.get(`${API_BASE_URL}/api/quizzes/${id}`)
         .then(response => response.data)
         .catch(error => {
             console.log(error);
@@ -59,11 +30,7 @@ export const getQuizById = (id) => {
 }
 
 export const getQuizByName = (name) => {
-    return axios.get(`${API_BASE_URL}/api/quizzes/${name}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    return axios.get(`${API_BASE_URL}/api/quizzes/${name}`)
         .then(response => response.data)
         .catch(error => {
             console.log(error);
