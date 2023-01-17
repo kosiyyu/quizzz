@@ -57,3 +57,4 @@ export const getQuizById = (id) => {
             console.log(error);
         });
 }
+
