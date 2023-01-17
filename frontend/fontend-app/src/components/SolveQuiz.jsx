@@ -40,7 +40,7 @@ const SolveQuiz = ({id}) => {
         await createResult(result);
     }
 
-    return quiz === null || quiz === undefined ? <p>There is a problem loading the quiz</p> : (
+    return quiz === null || quiz === undefined ? <p>Loading the quiz...</p> : (
         <form onSubmit={handleSubmit}>
             {quiz.questions.map((question, index) => (<div key={index}>
                 <label>{question.text}</label>

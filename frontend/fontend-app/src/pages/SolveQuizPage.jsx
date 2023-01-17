@@ -1,5 +1,7 @@
+import { useParams } from 'react-router-dom';
 import SolveQuiz from "../components/SolveQuiz";
 
 export default function SolveQuizPage(){
-    return(<SolveQuiz id={1}/>)
+    const { id } = useParams();
+    return(<SolveQuiz id={id}/>)
 }

@@ -58,3 +58,15 @@ export const getQuizById = (id) => {
         });
 }
 
+export const getQuizByName = (name) => {
+    return axios.get(`${API_BASE_URL}/api/quizzes/${name}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.data)
+        .catch(error => {
+            console.log(error);
+        });
+}
+

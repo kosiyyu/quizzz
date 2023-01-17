@@ -20,7 +20,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<SearchPage/>}/>
                     <Route path="/create" element={<CreateQuizPage/>}/>
-                    <Route path="/solve" element={<SolveQuizPage/>}/>
+                    <Route path="/solve/:id" element={<SolveQuizPage/>}/>
                 </Routes>
             </div>
         </div>
