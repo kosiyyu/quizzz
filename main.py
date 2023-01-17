@@ -5,7 +5,7 @@ from flask_restful import Api
 from config import DATABASE_CONFIG
 from resources.answer import AnswerAPI, AnswerByIdAPI
 from resources.question import QuestionAPI, QuestionByIdAPI
-from resources.quiz import QuizAPI, QuizByIdAPI
+from resources.quiz import QuizAPI, QuizByIdAPI, QuizByNameAPI
 from resources.result import ResultAPI
 
 app = Flask(__name__)
@@ -35,6 +35,7 @@ api.add_resource(QuestionByIdAPI, '/api/questions/<int:question_id>')
 
 api.add_resource(QuizAPI, '/api/quizzes')
 api.add_resource(QuizByIdAPI, '/api/quizzes/<int:quiz_id>')
+api.add_resource(QuizByNameAPI, '/api/quizzes/<string:quiz_name>')
 
 api.add_resource(ResultAPI, '/api/solve')
 

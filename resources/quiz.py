@@ -119,8 +119,8 @@ class QuizAPI(Resource):
                                    'Content-Type': 'application/json'}
 
                 question = Question(text=q['text'],
-                                        points_per_correct_answer=q.get('points_per_correct_answer', 0),
-                                        quiz_id=quiz.id)
+                                    points_per_correct_answer=q.get('points_per_correct_answer', 0),
+                                    quiz_id=quiz.id)
                 db.session.add(question)
                 db.session.commit()
                 for a in q['answers']:
@@ -132,3 +132,17 @@ class QuizAPI(Resource):
                        'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
                        'Content-Type': 'application/json'}
         return {'message': 'Resource created successfully.'}, 201, {'Content-Type': 'application/json'}
+
+
+class QuizByNameAPI(Resource):
+    def get(self, quiz_name):
+        try:
+            quiz = Quiz.query.filter_by(name=quiz_name).first()
+            if quiz is None:
+                return {'message': 'The requested resource could not be found for the provided name.'}, 404, {
+                    'Content-Type': 'application/json'}
+        except SQLAlchemyError:
+            return {
+                       'message': 'An unexpected error occurred while processing the request. Please try again later.'}, 500, {
+                       'Content-Type': 'application/json'}
+        return quiz.to_dict(), 200, {'Content-Type': 'application/json'}
