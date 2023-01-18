@@ -7,6 +7,7 @@ import CreateQuizPage from "./pages/CreateQuizPage";
 import SolveQuizPage from "./pages/SolveQuizPage";
 import SearchPage from "./pages/SearchPage";
 import ResultPage from "./pages/ResultPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
     return (
@@ -15,7 +16,8 @@ function App() {
             <ToastContainer/>
             <div>
                 <Routes>
-                    <Route path="/" element={<SearchPage/>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/create" element={<CreateQuizPage/>}/>
                     <Route path="/solve/:id" element={<SolveQuizPage/>}/>
                     <Route path="/result/:id" element={<ResultPage/>}/>

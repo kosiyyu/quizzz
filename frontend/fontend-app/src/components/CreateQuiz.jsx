@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {createQuiz} from '../services/QuizApi'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CreateQuiz = () => {
     const [quizName, setQuizName] = useState('');
@@ -57,7 +57,7 @@ const CreateQuiz = () => {
     }
 
     const handleRemoveAnswer = (questionIndex, answerIndex) => {
-        //console.log("aaaaaaaaaaaaaaaaaa");
+        //console.log("aaaaaaaaaaaaaaaa");
         setAnswers(prevAnswers => {
             const updatedAnswers = [...prevAnswers];
             updatedAnswers[questionIndex] = updatedAnswers[questionIndex].filter((_, i) => i !== answerIndex);
@@ -86,11 +86,11 @@ const CreateQuiz = () => {
 
     return (
         <div className={"container"}>
-            <h1>Create Quiz</h1>
+            <h1 className="display-4">Create quiz</h1>
             <form onSubmit={handleSubmit}>
-                <div className={"center-div"}>
+                <div>
                     <label htmlFor="quizName">Quiz Name:</label>
-                    <input
+                    <input className="form-control"
                         type="text"
                         id="quizName"
                         value={quizName}
@@ -102,19 +102,21 @@ const CreateQuiz = () => {
                     <div className={"question"} key={i}>
                         <label htmlFor={`question${i}`}>Question {i + 1}:</label>
                         <input
+                            className="form-control"
                             type="text"
                             id={`question${i}`}
                             value={q}
                             onChange={(e) => handleQuestionChange(i, e)}
                         />
-                        <button type="button" onClick={() => handleRemoveQuestion(i)}>
-                            rem quest Dummy
+                        <button className="btn btn-dark" type="button" onClick={() => handleRemoveQuestion(i)}>
+                            Remove question
                         </button>
                         <br/>
                         {answers[i].map((a, j) => (
                             <div className={"answer"} key={j}>
                                 <label htmlFor={`answer${i}-${j}`}>Answer {j + 1}:</label>
                                 <input
+                                    className="form-control"
                                     type="text"
                                     id={`answer${i}-${j}`}
                                     value={a}
@@ -127,23 +129,23 @@ const CreateQuiz = () => {
                                     checked={correctAnswers[i] === j}
                                     onChange={() => handleCorrectAnswerChange(i, j)}
                                 />
-                                <button type="button" onClick={() => handleRemoveAnswer(i, j)}>
-                                    rem ans Dummy
+                                <button className="btn btn-dark m-2" type="button" onClick={() => handleRemoveAnswer(i, j)}>
+                                    Remove answer
                                 </button>
                                 <br/>
                             </div>
                         ))}
-                        <button type="button" onClick={() => handleAddAnswer(i)}>
-                            Add Answer
+                        <button className="btn btn-dark m-2" type="button" onClick={() => handleAddAnswer(i)}>
+                            Add answer
                         </button>
                         <br/>
                     </div>
                 ))}
-                <button type="button" onClick={handleAddQuestion}>
+                <button className="btn btn-dark m-2" type="button" onClick={handleAddQuestion}>
                     Add Question
                 </button>
                 <br/>
-                <button type="submit">Create Quiz</button>
+                <button className="btn btn-dark m-2 btn-lg p-3" type="submit">Create Quiz</button>
             </form>
         </div>
     );

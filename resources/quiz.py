@@ -99,6 +99,12 @@ class QuizAPI(Resource):
                            'message': 'The request is missing one or more required fields. Please check the request and try again.'}, 400, {
                            'Content-Type': 'application/json'}
 
+            existing_quiz = Quiz.query.filter_by(name=args['name']).first()
+            if existing_quiz:
+                return {
+                           'message': 'A quiz with this name already exists. Please choose a different name and try again.'}, 400, {
+                           'Content-Type': 'application/json'}
+
             quiz = Quiz(name=args['name'])
             db.session.add(quiz)
             db.session.commit()

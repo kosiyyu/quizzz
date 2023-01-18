@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {createResult} from '../services/ResultApi';
 import {getQuizById} from "../services/QuizApi";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SolveQuiz = ({id}) => {
     const [quiz, setQuiz] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const navigate = useNavigate();
 
-         useEffect(() => {
+    useEffect(() => {
         getQuizById(id) // call the function here
             .then(data => {
                 setQuiz(data);
@@ -37,23 +38,27 @@ const SolveQuiz = ({id}) => {
         navigate(`/result/${data.id}`);
     }
 
-    return quiz === null || quiz === undefined ? <p>Loading the quiz...</p> : (
-        <form onSubmit={handleSubmit}>
-            {quiz.questions.map((question, index) => (<div key={index}>
-                <label>{question.text}</label>
-                {question.answers.map((answer, answerIndex) => (<div key={answerIndex}>
-                    <input
-                        type="radio"
-                        name={`question${index}`}
-                        value={answerIndex}
-                        checked={selectedAnswers[index] === answerIndex}
-                        onChange={() => handleAnswerChange(index, answerIndex)}
-                    />
-                    <label>{answer.text}</label>
+    return quiz === null || quiz === undefined ? <p className="text-white">Loading the quiz...</p> : (
+        <div className="container">
+            <h1 className="display-4">Solve quiz</h1>
+            <form onSubmit={handleSubmit}>
+                {quiz.questions.map((question, index) => (<div key={index}>
+                    <h6 className="text-dark">{question.text}</h6>
+                    {question.answers.map((answer, answerIndex) => (<div key={answerIndex}>
+                        <input
+                            type="radio"
+                            name={`question${index}`}
+                            value={answerIndex}
+                            checked={selectedAnswers[index] === answerIndex}
+                            onChange={() => handleAnswerChange(index, answerIndex)}
+                        />
+                        <label className="text-dark">{answer.text}</label>
+                    </div>))}
                 </div>))}
-            </div>))}
-            <button type="submit">Submit</button>
-        </form>);
+                <button className="btn btn-dark m-2" type="submit">Submit</button>
+            </form>
+        </div>);
+
 }
 
 export default SolveQuiz;
